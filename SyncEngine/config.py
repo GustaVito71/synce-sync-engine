@@ -213,7 +213,7 @@ class GlobalConfig(ConfigObject):
 				  "EnableDTPT" : self.validate_EnableDTPT }
 				  
 		self.cfg = { "SlowSyncDisable" : 0,
-		             "AuthMethod"      : "EXTERNAL",
+		             "AuthMethod"      : "INTERNAL_GUI",
 			     "AppendDefaultTimezone" : 0,
 			     "OpensyncXMLFormat" : DefaultFormat,
 			     "FlushIDB" : 1,

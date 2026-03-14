@@ -30,7 +30,7 @@
 			without GTK
 			       
 			If this element is not specified, the default will be
-			EXTERNAL
+			INTERNAL_GTK
 		-->
 		
 		<!-- <AuthMethod>INTERNAL_GUI</AuthMethod> -->

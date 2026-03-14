@@ -27,7 +27,7 @@ UDEV_DEVICE_PASSWORD_FLAG_CHECKING          = "checking"
 UDEV_DEVICE_PASSWORD_FLAG_UNLOCKED          = "unlocked"
 
 	
-AUTH_TOOLS_PATH = os.path.dirname(os.path.abspath(__file__))
+AUTH_TOOLS_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)),"../tools")
 CLI_TOOL = os.path.join(AUTH_TOOLS_PATH,"authcli.py")
 GUI_TOOL = os.path.join(AUTH_TOOLS_PATH,"authgui.py")
 	

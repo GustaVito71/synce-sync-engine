@@ -1,3 +1,68 @@
+synce-sync-engine (0.16-0~bookworm2) bookworm; urgency=medium
+
+  * SyncEngine/xml2util.py: Rewrite using lxml.etree replacing libxml2
+    API (FindChildNode, GetNodeValue, SetNodeContent, FindOrCreateChild).
+  * SyncEngine/formatapi.py, formats/parser.py, formats30/parser.py:
+    Migrate XSLT transformation pipeline from libxslt to lxml.etree.XSLT.
+    Register Cat.A xpath functions via lxml FunctionNamespace and Cat.B
+    extension elements via extensions= parameter.
+  * SyncEngine/formats/conversions.py: Port all XSLT extension functions
+    to lxml Cat.A (xpath) and Cat.B (XSLTExtension) APIs. Fix RTFHDR to
+    bytes; encode/decode pyrtfcomp return values; add RTF \'nn escape
+    post-processing regex; fix integer division (//); add _curtz_name().
+  * SyncEngine/formats/tzconv.py: Rewrite _ConvertASTimezoneToVcalExt
+    for lxml input_node semantics (input_node = ApplicationData, not child).
+    Fix integer division in FromVcalTZ (stdos.seconds//60).
+  * SyncEngine/formats/task-from-airsync.xsl: Add TimezoneID attribute
+    for DueDate and StartDate elements when timezone is set.
+  * SyncEngine/airsync.py, wbxml/converters.py, formats30/*: Complete
+    lxml migration for all remaining libxml2/libxslt usages.
+  * tests/testdata/air2os/opensync_event_{birthday,ex1}.xml: Update DST
+    DateStarted to use year from C:StartTime (not current year).
+  * tests/testdata/os2air/airsync_event_{ex4,ex5,ex6,transp1}.xml,
+    airsync_task_desc1.xml: Update Rtf base64 to Python 3 pyrtfcomp output.
+  * debian/control: Replace python3-libxml2 with python3-lxml in Depends.
+  * debian/rules: Enable dh_auto_test (tests now pass with lxml).
+
+ -- Gustavo Perez Reyes <ghreyes71@gmail.com>  Sun, 08 Mar 2026 21:30:00 -0300
+
+synce-sync-engine (0.16-0~bookworm1) bookworm; urgency=medium
+
+  * Port to Debian 12 Bookworm / Python 3.
+  * SyncEngine/*.py, tools/*.py, sync-engine, synce-install-plugins.py:
+    Port Python 2 → 3 using 2to3 and manual fixes (cPickle→pickle,
+    httplib→http.client, BaseHTTPServer→http.server, thread→threading,
+    print statements, unicode()→str(), dict.iteritems()→.items(),
+    has_key()→in, except E,e→except E as e).
+  * SyncEngine/dtptserver.py: Fix Python 3 bytes/str issues: os.write
+    now requires bytes (b"stop"); Buffer class default changed to b"";
+    write_bytes padding uses b"\x00"; write_string uses b"\x00\x00"
+    null terminator; integer division len(data)//24; h_aliases_bin_*
+    and h_addr_list_bin_* initialized as b""; _serialize_sockaddr uses
+    b"\x00" padding.
+  * SyncEngine/formats/, formats30/, wbxml/, formats*/tzutils/:
+    Apply expandtabs(4) and fix mixed-indentation errors introduced
+    by 2to3 on tab-indented code (commonconv.py, dateutil.py,
+    taskconv.py, codec.py, dtd.py, authgui.py, recurrence.py etc.).
+  * debian/control: Bump debhelper compat to 13, Standards-Version to
+    4.6.2, update Maintainer, remove Python 2 build-deps, drop
+    opensync-plugin-synce* packages (python-opensync unavailable),
+    update all runtime deps to Python 3 equivalents.
+  * debian/rules: Rewrite using dh sequencer with pybuild/python3.
+    Skip dh_auto_test: libxslt Python 3 bindings unavailable in
+    Bookworm (python-libxslt1 was Python 2 only; lxml migration
+    pending). Fix XSL file permissions via override_dh_fixperms.
+  * debian/compat: Removed; debhelper-compat (= 13) in Build-Depends.
+  * debian/source/format: Set to 3.0 (quilt).
+  * debian/synce-sync-engine.install: Removed; pybuild installs
+    directly to debian/synce-sync-engine/ without needing .install.
+  * setup.py: Exclude plugins/ from find_packages() (opensync plugins
+    discarded; python-opensync unavailable in Bookworm).
+  * Known issue: XSLT format conversion (libxslt/libxml2 Python 2 API)
+    not functional at runtime; lxml migration required (Fase C).
+
+ -- Gustavo Perez Reyes <ghreyes71@gmail.com>  Mon, 03 Mar 2026 21:45:00 -0300
+
 synce-sync-engine (0.16-0ubuntu0~ppa1~xenial1) xenial; urgency=medium
 
   * rebuild for xenial

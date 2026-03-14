@@ -1,47 +1,17 @@
 Source: synce-sync-engine
-Section: libs
+Section: utils
 Priority: optional
-Maintainer: Mark Ellis <mark@mpellis.org.uk>
-Build-Depends: debhelper (>= 5)
-Build-Depends-Indep: python-setuptools, python (>=2.6.6-3)
-Standards-Version: 3.9.3
+Maintainer: Gustavo Perez Reyes <ghreyes71@gmail.com>
+Build-Depends: debhelper-compat (= 13), python3-all, python3-setuptools
+Standards-Version: 4.6.2
 
 Package: synce-sync-engine
 Section: utils
 Architecture: all
-Depends: ${shlibs:Depends}, ${misc:Depends}, ${python:Depends}, synce-dccm, python-gobject, python-dbus, python-dateutil, python-libxml2, python-tz, python-libxslt1, python-rra (>=0.14), python-rapi2 (>=0.14), python-rtfcomp
-Provides: ${python:Provides}
+Depends: ${misc:Depends}, ${python3:Depends}, synce-dccm, python3-gi, python3-dbus, python3-dateutil, python3-lxml, python3-tz, python3-rra (>= 0.17-0~bookworm2), python3-rapi2 (>= 0.17-0~bookworm3), python3-rtfcomp
 Description: Synchronization engine for Windows Mobile devices
- SyncEngine talks the to a Windows Mobile device through the ActiveSync
- protocol. It provides plugins for OpenSync for synchronization. SyncEngine
- talks to the device through the connection manager, odccm.
+ SyncEngine talks to a Windows Mobile device through the ActiveSync
+ protocol. SyncEngine talks to the device through the connection
+ manager, synce-dccm.
  .
  This package contains the actual SyncEngine.
-
-Package: opensync-plugin-synce
-Section: libs
-Architecture: all
-Depends: ${shlibs:Depends}, ${misc:Depends}, ${python:Depends}, synce-sync-engine, python-opensync, python-dbus, python-gobject, opensync-module-python, dbus-x11
-Provides: ${python:Provides}
-Description: SynCE plugin for OpenSync
- SyncEngine talks the to a Windows Mobile device through the ActiveSync
- protocol. It provides plugins for OpenSync for synchronization. SyncEngine
- talks to the device through the connection manager, odccm.
- .
- This package contains a SyncEngine plugin for OpenSync. This allows you
- to sync using SyncEngine.
-
-Package: opensync-plugin-synce-3x
-Section: libs
-Architecture: all
-Depends: ${shlibs:Depends}, ${misc:Depends}, ${python:Depends}, synce-sync-engine, python-opensync1, python-dbus, python-gobject, libopensync-plugin-python (>>0.39), dbus-x11
-Provides: ${python:Provides}
-Description: SynCE plugin for OpenSync
- SyncEngine talks the to a Windows Mobile device through the ActiveSync
- protocol. It provides plugins for OpenSync for synchronization. SyncEngine
- talks to the device through the connection manager, odccm.
- .
- This package contains a SyncEngine plugin for OpenSync 0.3x. This allows you
- to sync using SyncEngine.
- .
- This plugin is EXPERIMENTAL.
